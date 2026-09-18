@@ -1,4 +1,5 @@
 .git/**
+.gitignore
 .github/**
 test/**
 node_modules/**

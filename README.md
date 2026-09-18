@@ -23,6 +23,11 @@ There is no executable code and the extension requests no permissions. Colors re
 
 [Calva](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva) supplies the base Clojure grammar.
 
+## Releases
+
+Every commit to `main` is published automatically. Marketplace versions use
+`1.0.<main commit count>`.
+
 ## License
 
 MIT
