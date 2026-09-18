@@ -1,0 +1,121 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Quiet Clojure Syntax",
+  "scopeName": "quiet-clojure.injection",
+  "injectionSelector": "L:source.clojure -string -comment",
+  "patterns": [
+    {
+      "include": "#definition"
+    },
+    {
+      "include": "#metadata-map"
+    },
+    {
+      "include": "#metadata-keyword"
+    },
+    {
+      "include": "#metadata-symbol"
+    },
+    {
+      "include": "#metadata-marker"
+    },
+    {
+      "include": "#character-after-opening-character"
+    },
+    {
+      "include": "#character"
+    }
+  ],
+  "repository": {
+    "character": {
+      "match": "(?<![\\w\\\\])\\\\(?:u[0-9A-Fa-f]{4}|o[0-7]{3}|newline|space|tab|backspace|formfeed|return|.)",
+      "name": "constant.character.clojure"
+    },
+    "character-after-opening-character": {
+      "match": "(?<=\\\\[\\(\\{\\[])([\\s,]+)(\\\\(?:u[0-9A-Fa-f]{4}|o[0-7]{3}|newline|space|tab|backspace|formfeed|return|.))",
+      "captures": {
+        "2": {
+          "name": "constant.character.clojure"
+        }
+      }
+    },
+    "definition": {
+      "begin": "(?<=\\()((?:def(?!ault)[\\w\\d._:+=><!?*-]*|[\\w._:+=><!?*-][\\w\\d._:+=><!?*-]*/def(?!ault)[\\w\\d._:+=><!?*-]*))\\s+",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.control.clojure"
+        }
+      },
+      "end": "(?![-+]?\\d)([\\p{L}.\\-_+=><!?*][\\w.\\-_:+=><!?*\\d]*)",
+      "endCaptures": {
+        "1": {
+          "name": "entity.global.clojure"
+        }
+      },
+      "name": "meta.definition.global.clojure",
+      "patterns": [
+        {
+          "include": "#metadata-map"
+        },
+        {
+          "include": "#metadata-keyword"
+        },
+        {
+          "include": "#metadata-symbol"
+        },
+        {
+          "include": "#metadata-marker"
+        },
+        {
+          "include": "$base"
+        }
+      ]
+    },
+    "metadata-map": {
+      "begin": "(\\^)(\\{)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.metadata.clojure"
+        },
+        "2": {
+          "name": "punctuation.section.metadata.map.begin.clojure"
+        }
+      },
+      "end": "(\\})",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.section.metadata.map.end.clojure"
+        }
+      },
+      "name": "meta.metadata.map.clojure",
+      "patterns": [
+        {
+          "include": "source.clojure"
+        }
+      ]
+    },
+    "metadata-keyword": {
+      "match": "(\\^)(:[\\w#._:+=></!?*-]+)(?=\\s|,|\\)|\\]|\\})",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.metadata.clojure"
+        },
+        "2": {
+          "name": "constant.keyword.clojure"
+        }
+      }
+    },
+    "metadata-symbol": {
+      "match": "(\\^)([^\\s\\[\\](){}]+)",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.metadata.clojure"
+        }
+      }
+    },
+    "metadata-marker": {
+      "match": "\\^",
+      "name": "punctuation.definition.metadata.clojure"
+    }
+  }
+}
