@@ -2,7 +2,7 @@
   "name": "quiet-clojure-syntax",
   "displayName": "Quiet Clojure Syntax",
   "description": "Additional TextMate scopes for restrained, customizable Clojure syntax highlighting in Calva.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "vlaaad",
   "license": "MIT",
   "repository": {

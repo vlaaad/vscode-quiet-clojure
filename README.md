@@ -4,7 +4,7 @@ Quiet Clojure Syntax is a small, data-only companion extension for [Calva](https
 
 It provides scopes for:
 
-- top-level names introduced by `def`, `defn`, `defonce`, and other `def*` forms;
+- top-level names introduced by `def`, `defn`, `defonce`, and other `def*` forms, including qualified forms such as `defonce/record`;
 - Clojure character literals, including escaped delimiters such as `\\)`;
 - metadata markers and keyword metadata such as `^:private`.
 

@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import assert from "node:assert/strict";
 import {createRequire} from "node:module";
 const require = createRequire(import.meta.url);
 const oniguruma = require("vscode-oniguruma");
@@ -48,4 +49,17 @@ for (const line of lines) {
       scopes: token.scopes
     }));
   }
+}
+
+for (const [line, name, isDefinition] of [
+  ["(defonce/record EmbeddedImageResource [entry])", "EmbeddedImageResource", true],
+  ["(defcustom/thing CustomName [])", "CustomName", true],
+  ["(util/defrecord QualifiedDefinition [])", "QualifiedDefinition", true],
+  ["(default/record OrdinaryCall [])", "OrdinaryCall", false]
+]) {
+  const token = grammar.tokenizeLine(line).tokens.find(token =>
+    line.slice(token.startIndex, token.endIndex) === name
+  );
+  assert.ok(token, "Missing token for " + name);
+  assert.equal(token.scopes.includes("entity.global.clojure"), isDefinition, line);
 }
